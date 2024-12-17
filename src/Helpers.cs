@@ -98,6 +98,12 @@ public class BlazorStaticHelpers(BlazorStaticOptions options, ILogger<BlazorStat
                 return;
             }
 
+            if (sourcePath.Equals(targetPath, StringComparison.OrdinalIgnoreCase))
+            {
+                logger.LogWarning("Source path and target path are the same. Skipping copy of {sourcePath}", sourcePath);
+                return;
+            }
+
             Directory.CreateDirectory(dir);
             File.Copy(sourcePath, targetPath, true);
             return;
