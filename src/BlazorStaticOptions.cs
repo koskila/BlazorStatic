@@ -106,6 +106,14 @@ public class BlazorStaticOptions
     /// </summary>
     public bool HotReloadEnabled { get; set; }
 
+    public object? RSSFeedTitle { get; set; }
+
+    public object? RSSFeedDescription { get; set; }
+
+    public string RSSFeedOutputFolderPath { get; set; }
+
+    public bool ShouldGenerateRSS { get; set;  }
+
 
     /// <summary>
     ///     Iterator for optional actions.

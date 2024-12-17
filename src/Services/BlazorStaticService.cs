@@ -63,6 +63,11 @@ public class BlazorStaticService(
             await TryGenerateSitemap();
         }
 
+        if (Options.ShouldGenerateRSS)
+        {
+            await TryGenerateRSSFeed();
+        }
+
         var ignoredPathsWithOutputFolder = options.IgnoredPathsOnContentCopy.Select(x => Path.Combine(options.OutputFolderPath, x)).ToList();
         foreach(var pathToCopy in options.ContentToCopyToOutput)
         {
@@ -145,13 +150,52 @@ public class BlazorStaticService(
         await File.WriteAllTextAsync(sitemapPath, xDocument.Declaration + xDocument.ToString());
         logger.LogInformation("Sitemap generated into {pageOutputFile}", sitemapPath);
         options.ContentToCopyToOutput.Add(new ContentToCopy(sitemapPath, sitemapFileName));//it is not copied with wwwroot as
-        return;
 
-        static string EncodeUrl(string url)
+        return;
+    }
+
+    private async Task TryGenerateRSSFeed()
+    {
+        if(string.IsNullOrWhiteSpace(Options.SiteUrl))
         {
-            var encodedUrl = HttpUtility.UrlEncode(url, Encoding.UTF8).Replace("%2f", "/");
-            return encodedUrl.StartsWith('/') ? encodedUrl : '/' + encodedUrl;
+            logger.LogWarning("'BlazorStaticOptions.SiteUrl' is null or empty! Can't generate RSS Feed." +
+            " Either provide the site url or set 'BlazorStaticOptions.ShouldGenerateRSSFeed' to false");
+            return;
         }
+        var rss = new XDocument(
+            new XDeclaration("1.0", "UTF-8", null),
+            new XElement("rss",
+                new XAttribute("version", "2.0"),
+                new XElement("channel",
+                    new XElement("title", Options.RSSFeedTitle),
+                    new XElement("link", Options.SiteUrl),
+                    new XElement("description", Options.RSSFeedDescription),
+                    new XElement("lastBuildDate", DateTime.UtcNow.ToString("r")),
+                    new XElement("generator", "BlazorStatic"),
+                    new XElement("docs", "http://blogs.law.harvard.edu/tech/rss"),
+                    new XElement("ttl", 60),
+                    options.PagesToGenerate.Select(page =>
+                        new XElement("item",
+                            new XElement("title", page.Url),
+                            new XElement("link", Options.SiteUrl.TrimEnd('/') + EncodeUrl(page.Url)),
+                            new XElement("description", "RSS Feed"),
+                            new XElement("pubDate", DateTime.UtcNow.ToString("r"))
+                        )
+                    )
+                )
+            )
+        );
+        const string rssFileName = "feed";
+        var rssPath = Path.Combine(options.RSSFeedOutputFolderPath, rssFileName);
+        File.WriteAllText(rssPath, rss.Declaration + rss.ToString());
+        logger.LogInformation("RSS Feed generated into {pageOutputFile}", rssPath);
+        options.ContentToCopyToOutput.Add(new ContentToCopy(rssPath, rssFileName));
+    }
+
+    static string EncodeUrl(string url)
+    {
+        var encodedUrl = HttpUtility.UrlEncode(url, Encoding.UTF8).Replace("%2f", "/");
+        return encodedUrl.StartsWith('/') ? encodedUrl : '/' + encodedUrl;
     }
 
     /// <summary>
