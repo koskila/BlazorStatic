@@ -5,6 +5,8 @@ on: #on created release
   release:
     types:
       - created
+  workflow_dispatch:
+
 env:
   BLAZORSTATIC_NUGET_PKG_PATH: src/bin/Release
   NUGET_FOLDER: nugetky
