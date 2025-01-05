@@ -33,7 +33,6 @@
     <RepositoryUrl>https://github.com/BlazorStatic/BlazorStatic/</RepositoryUrl>
     <PackageProjectUrl>https://blazorstatic.net</PackageProjectUrl>
     <PackageTags>Blazor, StaticSiteGenerator</PackageTags>
-    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
