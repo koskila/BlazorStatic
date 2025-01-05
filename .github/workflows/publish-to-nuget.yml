@@ -21,7 +21,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Run webapp and generate static files
-        run: dotnet pack --project src/BlazorStatic.csproj --configuration Release
+        run: dotnet pack src/BlazorStatic.csproj --configuration Release
 
       - name: Copy .nupkg of BlazorStatic to destination folder
         run: |
