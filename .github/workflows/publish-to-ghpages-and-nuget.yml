@@ -3,7 +3,10 @@ name: Build, publish to gh pages and nuget
 
 on:
   push:
-    branches: ["master"]
+    branches:
+      - master
+      - rel-*
+
 env:
   WEBAPP_PATH: BlazorStaticWebsite
   TEMPLATE_PROJ_PATH: BlazorStaticTemplates/BlazorStatic.Templates.csproj
@@ -11,7 +14,6 @@ env:
   NUGET_FOLDER: nugetky
   WEBAPP_CSPROJ: BlazorStaticWebsite.csproj
   ASPNETCORE_ENVIRONMENT: Production
-  is_master_branch: ${{ github.ref == 'refs/heads/master' }}
 
 jobs:
   build:
@@ -48,7 +50,7 @@ jobs:
           dotnet pack ${{ env.TEMPLATE_PROJ_PATH }} --output ${{ env.NUGET_FOLDER }}
 
       - name: Upload NuGet package artifacts
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ startsWith(github.ref, 'refs/heads/rel-') }}
         uses: actions/upload-artifact@v4
         with:
             name: nuget-packages
@@ -73,7 +75,7 @@ jobs:
   publish-to-nuget:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ startsWith(github.ref, 'refs/heads/rel-') }}
     steps:
       - name: Download NuGet package artifacts
         uses: actions/download-artifact@v4
