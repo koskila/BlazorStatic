@@ -5,7 +5,7 @@
 [![Discord](https://img.shields.io/discord/798312431893348414?style=flat&logo=discord&logoColor=white&label=Blazor%20Community%2F%23BlazorStatic&labelColor=5865f2&color=gray)
 ](https://discord.gg/DsAXsMuEbx)
 [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/BlazorStatic)](https://www.nuget.org/packages/BlazorStatic/)
-[![Build, publish to gh pages anN nuget](https://github.com/BlazorStatic/BlazorStatic/actions/workflows/publish-to-ghpages-and-nuget.yml/badge.svg)](https://github.com/BlazorStatic/BlazorStatic/actions/workflows/publish-to-ghpages-and-nuget.yml)
+[![Build, publish to gh pages anN nuget](https://github.com/BlazorStatic/BlazorStatic/actions/workflows/publish-to-nuget.yml/badge.svg)](https://github.com/BlazorStatic/BlazorStatic/actions/workflows/publish-to-nuget.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4fa2c17a-6385-4cc6-9919-e32c134175d9/deploy-status)](https://app.netlify.com/sites/blazorstatic/deploys)
 
 
@@ -17,7 +17,7 @@ Transform your Blazor app into a static site.
 
 **BlazorStatic** aims to be intuitive and easy to use for most developers who have worked with any kind of front-end framework, especially if you already work with Blazor.
 
-> The site for BlazorStatic is a feature-rich example of the library. Check the [source code](https://github.com/BlazorStatic/BlazorStatic/tree/master/BlazorStaticWebsite). 
+> The site for BlazorStatic is a feature-rich example of the library. Check the [source code](https://github.com/BlazorStatic/BlazorStatic/tree/master/BlazorStaticWebsite).
 
 Upon running your app, **BlazorStatic** fetches the pages' HTML with `HttpClient`, outputs HTML files and assets to the `output` folder, and from there you can deploy to any standard HTTP server or hosting service.
 
@@ -39,7 +39,7 @@ dotnet new install BlazorStatic.Templates
 This adds new options to your `dotnet new` template list. Then create a new project using:
 
 ```sh
-dotnet new BlazorStaticMinimalBlog -o MyBlazorStaticApp 
+dotnet new BlazorStaticMinimalBlog -o MyBlazorStaticApp
 ```
 
 This creates a `MyBlazorStaticApp` folder and project. It's a standard .NET Blazor app with the BlazorStatic package installed, including a few predefined components, styles, and a blog post with example content.
@@ -61,7 +61,7 @@ It will copy all the content and run the GitHub action for you. After it runs, g
 
 ![github pages](.github/media/README/img-1.png)
 
-Your page is ready now! 
+Your page is ready now!
 
 ## 🛠️ Custom Way
 
@@ -77,7 +77,7 @@ If you want to fully understand how BlazorStatic works or if you have an existin
 - Works with all CSS frameworks and themes.
 - Easy to deploy with CI/CD pipeline.
 - Supports HotReload
-- Has `dotnet new` template 
+- Has `dotnet new` template
 
 
 # 📦 Deploying
