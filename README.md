@@ -100,5 +100,6 @@ Detailed instructions are [here](./BlazorStaticWebsite/Content/Docs/deployment.m
 Contributions are highly encouraged and appreciated. If you find something missing, unclear, or encounter an issue with the code, I warmly welcome your input. Feel free to:
 
 - Create a new [issue](https://github.com/BlazorStatic/BlazorStatic/issues) or submit a PR.
+- Reach out via email: info@blazorstatic.net
 - Contact [me](https://github.com/tesar-tech/) directly for any queries or suggestions.
 - Ask questions or start a discussion on the [Blazor Community Discord server](https://discord.gg/DsAXsMuEbx).
