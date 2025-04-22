@@ -21,6 +21,15 @@
     <loc>https://blazorstatic.net/</loc>
   </url>
   <url>
+    <loc>https://blazorstatic.net/RouteRoulette</loc>
+  </url>
+  <url>
+    <loc>https://blazorstatic.net/MultiRoute</loc>
+  </url>
+  <url>
+    <loc>https://blazorstatic.net/MultiPathDemo</loc>
+  </url>
+  <url>
     <loc>https://blazorstatic.net/projects</loc>
   </url>
   <url>
@@ -37,6 +46,9 @@
   </url>
   <url>
     <loc>https://blazorstatic.net/blog/release-1.0.0-beta.10</loc>
+  </url>
+  <url>
+    <loc>https://blazorstatic.net/blog/release-1.0.0-beta.15</loc>
   </url>
   <url>
     <loc>https://blazorstatic.net/blog/release-1.0.0-beta.9</loc>
