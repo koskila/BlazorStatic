@@ -1,0 +1,36 @@
+@page "/MultiRoute"
+@page "/MultiPathDemo"
+@attribute [Route("/RouteRoulette")]
+
+<PageTitle>Multiple Routes Showcase</PageTitle>
+
+<div class="prose prose-invert">
+  <h1>Multiple Routes Showcase</h1>
+
+  <p>
+    <strong>BlazorStatic</strong> supports defining multiple routes for a single page component. This allows you to map different URL paths to the same page, which can be useful for cleaner URLs, localization, or alternative access points. Below are examples of how this works in practice.
+  </p>
+
+  <div class="mt-6 space-y-3">
+    <a href="MultiRoute"
+       class="inline-block w-full text-center px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors">
+      First Route
+    </a>
+    <a href="MultiPathDemo"
+       class="inline-block w-full text-center px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors">
+      Second Route
+    </a>
+    <a href="RouteRoulette"
+       class="inline-block w-full text-center px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors">
+      Third Route
+    </a>
+  </div>
+
+  <h2>Where can this be useful?</h2>
+
+  <p>
+    A common use case is route-based localization. For example, you can serve content like
+    <code>/en/blogs</code> and <code>/fr/blogs</code> using the same component with multiple route mappings.
+    This also works well for aliasing or backward compatibility in URLs.
+  </p>
+</div>

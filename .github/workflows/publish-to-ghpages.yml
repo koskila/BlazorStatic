@@ -3,15 +3,13 @@ name: Build, publish to gh pages and nuget
 
 on:
   push:
-    branches: ["master"]
+    branches:
+      - master
+
 env:
   WEBAPP_PATH: BlazorStaticWebsite
-  TEMPLATE_PROJ_PATH: BlazorStaticTemplates/BlazorStatic.Templates.csproj
-  BLAZORSTATIC_NUGET_PKG_PATH: src/bin/Release
-  NUGET_FOLDER: nugetky
   WEBAPP_CSPROJ: BlazorStaticWebsite.csproj
   ASPNETCORE_ENVIRONMENT: Production
-  is_master_branch: ${{ github.ref == 'refs/heads/master' }}
 
 jobs:
   build:
@@ -20,8 +18,9 @@ jobs:
       webapp-path: ${{ env.WEBAPP_PATH }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
         with:
-          submodules: recursive
+          dotnet-version: '9.0.x'
       - name: Remove launchSettings.json (to not override ASPNETCORE_ENVIRONMENT)
         run: rm ${{ env.WEBAPP_PATH }}/Properties/launchSettings.json
       - name: Tailwind - download and run cli
@@ -40,19 +39,6 @@ jobs:
             name: static-pages-output
             path: ${{ env.WEBAPP_PATH }}/output
 
-      - name: Copy .nupkg of BlazorStatic to destination folder and pack the template project there too
-        if: ${{ github.ref == 'refs/heads/master' }}
-        run: |
-          mkdir -p "${{ env.NUGET_FOLDER }}"
-          cp ${{ env.BLAZORSTATIC_NUGET_PKG_PATH }}/*.nupkg ${{ env.NUGET_FOLDER }}
-          dotnet pack ${{ env.TEMPLATE_PROJ_PATH }} --output ${{ env.NUGET_FOLDER }}
-
-      - name: Upload NuGet package artifacts
-        if: ${{ github.ref == 'refs/heads/master' }}
-        uses: actions/upload-artifact@v4
-        with:
-            name: nuget-packages
-            path: ${{ env.NUGET_FOLDER }}/*.nupkg
 
   deploy-to-gh-pages:
     permissions:
@@ -69,14 +55,3 @@ jobs:
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: ./output
-
-  publish-to-nuget:
-    needs: build
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/master' }}
-    steps:
-      - name: Download NuGet package artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: nuget-packages
-      - run: dotnet nuget push "*.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
