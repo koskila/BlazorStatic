@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>Latest</LangVersion>
+    <RazorLangVersion>8.0</RazorLangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,5 +40,17 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 
   </PropertyGroup>
+
+  <Target Name="CustomAfterBuild" AfterTargets="Build">
+    <Message Importance="High" Text="AfterBuild: creating Dependencies folder"/>
+    <MakeDir Directories="$(ProjectDir)..\..\koskilanet-blazorstatic\web\Dependencies"/>
+    <Message Importance="High" Text="AfterBuild: copying BlazorStatic.dll"/>
+    <Message Importance="High" Text="AfterBuild: DestinationFolder = $(ProjectDir)..\..\koskilanet-blazorstatic\web\Dependencies"/>
+    <Copy
+      SourceFiles="$(TargetDir)BlazorStatic.dll"
+      DestinationFolder="$(ProjectDir)..\..\koskilanet-blazorstatic\web\Dependencies"
+      OverwriteReadOnlyFiles="true"/>
+    <Message Importance="High" Text="AfterBuild: copy complete"/>
+  </Target>
 
 </Project>

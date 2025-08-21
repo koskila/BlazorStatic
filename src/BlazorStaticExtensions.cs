@@ -102,7 +102,6 @@ public static class BlazorStaticExtensions
 
     /// <summary>
     ///     Runs the actions necessary to generating static content by settings defined in options
-    ///     Runs the actions necessary to generating static content by settings defined in options
     /// </summary>
     /// <param name="app"></param>
     /// <typeparam name="TFrontMatter"></typeparam>
@@ -125,7 +124,6 @@ public static class BlazorStaticExtensions
             var requestPath = "/" + Path.GetFullPath(options.MediaRequestPath)[Directory.GetCurrentDirectory().Length..]
                 .TrimStart(Path.DirectorySeparatorChar)
                 .Replace("\\", "/");
-
 
             var realPath = Path.Combine(Directory.GetCurrentDirectory(), options.ContentPath, options.MediaFolderRelativeToContentPath);
             if(!Directory.Exists(realPath))
